@@ -12,3 +12,13 @@
 .navbar{
   background: #978e8eef !important;
 }
+
+.registerPage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  background-color: light;
+  
+
+}
