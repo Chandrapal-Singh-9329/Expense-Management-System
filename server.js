@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/connectDB.js'
 import userRoute from './routes/userRoute.js';
+import transactionRoute from './routes/transactionRoute.js';
 
 dotenv.config();
 connectDB();
@@ -14,7 +15,11 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());    
 
+//Routes
+//userRoute
 app.use('/api/v1/users', userRoute)
+//transection route
+app.use('/api/v1/transactions', transactionRoute)
 
 const PORT = 8080 || process.env.PORT;
 
