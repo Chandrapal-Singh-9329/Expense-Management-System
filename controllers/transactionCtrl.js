@@ -14,7 +14,7 @@ const addTransaction = async(req,res)=>{
 
 const getTransaction = async(req,res)=>{
     try {
-        const transactions = await transactionModel.find({});
+        const transactions = await transactionModel.find({userid:req.body.userid});
         res.status(200).json(transactions);
 
     } catch (error) {

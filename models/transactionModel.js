@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const transactionSchema = new mongoose.Schema({
+    userid:{
+        type:String,
+        required:[true, "Id is required"]
+    },
     amount:{
         type:Number,
         required:[true, "Amount is required"]
