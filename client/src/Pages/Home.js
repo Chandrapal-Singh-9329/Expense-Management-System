@@ -1,8 +1,10 @@
 import React,{useState , useEffect} from 'react'
 import Layout from './../components/layout/Layout'
-import {Modal, Form, Input , Select, message, Table} from 'antd';
+import {Modal, Form, Input , Select, message, Table, DatePicker} from 'antd';
 import axios from 'axios';
 import Spinner from '../components/layout/Spinner';
+import moment from 'moment';
+const {RangePicker} = DatePicker;
 
 
 
@@ -10,19 +12,22 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const[loading, setLoading] = useState(false);
   const [allTransactions, setAllTransactions] = useState([]);
+  const [frequency , setFrequency] = useState('7');
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [type, setType] = useState('all');
 
   //getAll Transaction
   const getAllTransaction = async() =>{
     try {
       setLoading(true);
       const user = JSON.parse(localStorage.getItem('user'));
-      const res = await axios.post('api/v1/transactions/get-transaction', {userid: user._id});
+      const res = await axios.post('api/v1/transactions/get-transaction', {userid: user._id, frequency, selectedDate, type});
       setLoading(false);
       setAllTransactions(res.data)
       console.log(res.data)
-      message.success("Transaction Fetched");
     } catch (error) {
       console.log(error)
+      setLoading(false)
       message.error("Failed to fetch data")   
     }
   }
@@ -30,13 +35,14 @@ const Home = () => {
   // useEffect Hook for Fetch Transactions
   useEffect(()=>{
     getAllTransaction();
-  },[])
+  },[frequency , selectedDate, type])
 
   // columns for data table
   const columns = [
     {
       title :"Date",
-      dataIndex : "date"
+      dataIndex : "date",
+      render : (text)=> <span>{moment(text).format('DD-MM-YYYY')}</span>
     },
     {
       title :"Amount",
@@ -81,7 +87,27 @@ const Home = () => {
     <Layout>
       {loading && <Spinner />}
       <div className="filters">
-        <div>Range Filter</div>
+        <div>
+          <h5>Select Frequency</h5>
+          <Select value={frequency} onChange={(values)=> setFrequency(values)} >
+          <Select.Option value='7'> Last 1 week</Select.Option>
+          <Select.Option value='30'> Last 1 month</Select.Option>
+          <Select.Option value='365'> Last 1 year</Select.Option>
+          <Select.Option value='custom'> Custom</Select.Option>
+          </Select>
+          {frequency === 'custom' && (<RangePicker value={selectedDate} onChange={(values)=> setSelectedDate(values)} /> )}
+        </div>
+
+        <div>
+          <h5>Select Type</h5>
+          <Select value={type} onChange={(values)=> setType(values)} >
+          <Select.Option value='all'> All</Select.Option>
+          <Select.Option value='expense'> Expense</Select.Option>
+          <Select.Option value='income'> Income</Select.Option>
+          </Select>
+        </div>
+
+
         <div>
           <button className='btn btn-primary' onClick={()=>{setShowModal(true)}}  >Add new</button>
         </div>

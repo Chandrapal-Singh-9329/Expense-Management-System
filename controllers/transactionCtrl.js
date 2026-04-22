@@ -1,4 +1,5 @@
 import transactionModel from '../models/transactionModel.js'
+import moment from 'moment'
 
 const addTransaction = async(req,res)=>{
     try {
@@ -14,7 +15,27 @@ const addTransaction = async(req,res)=>{
 
 const getTransaction = async(req,res)=>{
     try {
-        const transactions = await transactionModel.find({userid:req.body.userid});
+        const {frequency , selectedDate , type} = req.body;
+        const transactions = await transactionModel.find({
+            ...(frequency !== 'custom'? 
+                {
+                    date:{
+                        $gt : moment().subtract(Number(frequency) ,"d").toDate(),
+                    }
+                }
+                 :
+                 {
+                    date:{
+                        $gte: selectedDate[0],
+                        $lte : selectedDate[1]
+                    }
+                }
+             ),
+            
+            userid : req.body.userid,
+            ...(type !== 'all' && {type})
+        });
+
         res.status(200).json(transactions);
 
     } catch (error) {
