@@ -31,3 +31,23 @@
   box-shadow: 0 0 5px grey;
   padding: 15px 20px;
 }
+
+/* Icons */
+.anticon svg{
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.active-icon {
+  color: black !important;
+}
+
+.inactive-icon{
+  color:grey !important
+}
+
+.switch-icon{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 15px;
+}

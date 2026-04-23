@@ -3,7 +3,9 @@ import Layout from './../components/layout/Layout'
 import {Modal, Form, Input , Select, message, Table, DatePicker} from 'antd';
 import axios from 'axios';
 import Spinner from '../components/layout/Spinner';
+import Analytics from '../components/Analytics'
 import moment from 'moment';
+import {UnorderedListOutlined , AreaChartOutlined} from '@ant-design/icons';
 const {RangePicker} = DatePicker;
 
 
@@ -15,6 +17,7 @@ const Home = () => {
   const [frequency , setFrequency] = useState('7');
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState('all');
+  const [viewData , setViewData] = useState('table');
 
   //getAll Transaction
   const getAllTransaction = async() =>{
@@ -107,6 +110,17 @@ const Home = () => {
           </Select>
         </div>
 
+  {/* Icons */}
+        <div className='switch-icon'>
+          <UnorderedListOutlined  className={`mx-2 ${viewData==='table' ? 'active-icon' : 'inactive-icon'}`} 
+          onClick={()=> setViewData('table')} />
+
+
+          <AreaChartOutlined   className={`mx-2 ${viewData==='analytics' ? 'active-icon' : 'inactive-icon'}`} 
+          onClick={()=> setViewData('analytics')} />
+
+        </div>
+
 
         <div>
           <button className='btn btn-primary' onClick={()=>{setShowModal(true)}}  >Add new</button>
@@ -114,7 +128,11 @@ const Home = () => {
       </div>
 
       <div className="content">
-        <Table columns={columns} dataSource={allTransactions} />;
+        {viewData==='table' ?
+        <Table columns={columns} dataSource={allTransactions} />
+        : <Analytics allTransactions={allTransactions} />
+        }
+        
       </div>
 
       <Modal title='Add Transection'
