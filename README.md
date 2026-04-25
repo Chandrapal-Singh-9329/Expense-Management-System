@@ -1,0 +1,1 @@
+Expense Management System is a full-stack web application that helps users track their income and expenses efficiently. Users can add, edit, delete, and filter transactions while also viewing analytics and category-wise insights.
