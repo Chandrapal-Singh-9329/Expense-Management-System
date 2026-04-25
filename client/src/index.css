@@ -24,12 +24,19 @@
 }
 
 /* Transaction Home style */
-.filters{
+.filters {
   display: flex;
   justify-content: space-between;
-  align-items:center;
-  box-shadow: 0 0 5px grey;
-  padding: 15px 20px;
+  align-items: center;
+  gap: 20px;
+
+  padding: 20px;
+  margin-bottom: 20px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* Icons */
@@ -39,15 +46,220 @@
 }
 
 .active-icon {
-  color: black !important;
+  color: white;
+  background: #1677ff;
+
+  padding: 10px;
+  border-radius: 10px;
+
+  transition: 0.3s;
 }
 
-.inactive-icon{
-  color:grey !important
+.inactive-icon {
+  color: gray;
+
+  padding: 10px;
+  border-radius: 10px;
+
+  transition: 0.3s;
 }
 
-.switch-icon{
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 10px 15px;
+.switch-icon {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+.inactive-icon:hover {
+  background: #f1f1f1;
+  color: #1677ff;
+}
+
+
+/* TABLE */
+
+.ant-table {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+
+/* BUTTON */
+
+.btn-primary {
+  border: none !important;
+
+  padding: 10px 18px !important;
+
+  border-radius: 10px !important;
+
+  font-weight: 600;
+
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+
+/* CARD STYLING */
+
+.card {
+  border: none !important;
+
+  border-radius: 16px !important;
+
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 18px;
+
+  border-radius: 16px 16px 0 0 !important;
+}
+
+
+/* MODAL */
+
+.ant-modal-content {
+  border-radius: 18px !important;
+}
+
+
+/* FORM INPUTS */
+
+.ant-input,
+.ant-select-selector {
+  border-radius: 10px !important;
+  padding: 6px !important;
+}
+
+/* TABLE CONTAINER */
+
+.content {
+  margin-top: 20px;
+}
+
+
+
+
+/* TABLE */
+
+.ant-table {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+
+/* MAIN TABLE */
+
+.ant-table {
+  border-radius: 18px !important;
+  overflow: hidden !important;
+
+  background: white !important;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+
+/* HEADER */
+
+.ant-table-thead > tr > th {
+  background: #1677ff !important;
+  color: white !important;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  padding: 18px !important;
+
+  border-bottom: none !important;
+}
+
+
+/* ROWS */
+
+.ant-table-tbody > tr > td {
+  padding: 18px !important;
+
+  font-size: 15px;
+
+  transition: 0.3s;
+}
+
+
+/* HOVER EFFECT */
+
+.ant-table-tbody > tr:hover > td {
+  background: #f0f7ff !important;
+}
+
+
+/* ZEBRA STRIPES */
+
+.ant-table-tbody > tr:nth-child(even) > td {
+  background: #fafafa;
+}
+
+
+/* PAGINATION */
+
+.ant-pagination-item-active {
+  background: #1677ff !important;
+  border-color: #1677ff !important;
+}
+
+.ant-pagination-item-active a {
+  color: white !important;
+}
+
+
+/* ACTION ICONS */
+
+.action-icons {
+  display: flex;
+  gap: 14px;
+}
+
+
+/* EDIT ICON */
+
+.edit-icon {
+  color: #1677ff;
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.edit-icon:hover {
+  transform: scale(1.2);
+}
+
+
+/* DELETE ICON */
+
+.delete-icon {
+  color: red;
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.delete-icon:hover {
+  transform: scale(1.2);
 }

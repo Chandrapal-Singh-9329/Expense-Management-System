@@ -69,22 +69,33 @@ const Home = () => {
       dataIndex : "description"
     },
     {
-      title :"Action",
-      render : (text, record) => {
-        return(
-        <div>
-          <EditOutlined   onClick={()=>{
-            setEditable(record);
-            setShowModal(true)
-          }}/>
+  title: "Action",
 
-          <DeleteOutlined  className = 'mx-2' onClick={()=>{
-            handleDelete(record)
-          }} />
-        </div>
-        )
-      }
-    }
+  render: (text, record) => {
+    return (
+      <div className='action-icons'>
+
+        <EditOutlined
+          className='edit-icon'
+
+          onClick={() => {
+            setEditable(record);
+            setShowModal(true);
+          }}
+        />
+
+        <DeleteOutlined
+          className='delete-icon'
+
+          onClick={() => {
+            handleDelete(record);
+          }}
+        />
+
+      </div>
+    );
+  }
+}
   ]
 
   // handelDelete
@@ -92,6 +103,9 @@ const Home = () => {
     try {
       setLoading(true)
       await axios.post('api/v1/transactions/delete-transaction',{transactionId:record._id} )
+
+      await getAllTransaction();
+
       setLoading(false);
       message.success("Deleted Successfully");
     } catch (error) {
@@ -114,7 +128,9 @@ const Home = () => {
             ...values, userId: user._id
           }
         })
+      
       setLoading(false)
+      await getAllTransaction();
       message.success("Transaction Update successfully")
 
       }
@@ -123,6 +139,8 @@ const Home = () => {
       setLoading(false)
       message.success("Transaction add successfully")
       }
+
+      await getAllTransaction();
       setShowModal(false);
       setEditable(null);
     } catch (error) {

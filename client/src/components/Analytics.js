@@ -50,117 +50,148 @@ const Analytics = ({allTransactions}) => {
     
 
   return (
-    <>
-      <div className = 'row m-3'>
-        <div className = 'col-md-4'>
-            <div className = 'card'>
-                <div className = 'card-header'>
-                    Total Transactions = {totalTransaction}
-                </div>  
-                    
-                <div className = 'card-body'>
-                    <h5 className='text-success'>Income : {totalIncomeTransactions.length} </h5>
-                    <h5 className='text-danger'>Expense : {totalExpenseTransactions.length} </h5>
-                    <div>
-                        <Progress type='circle' strokeColor='green' className='mx-2' percent= {totalIncomePercent.toFixed(0)} />
+  <>
+    <div className='d-flex justify-content-between gap-3 flex-wrap'>
 
-                        <Progress type='circle' strokeColor='red' className='mx-2' percent= {totalExpensePercent.toFixed(0)} />
-
-                    </div>
-                </div>
-            </div>
+      {/* Card 1 */}
+      <div className='card p-2' style={{ width: '24%' }}>
+        <div className='card-header'>
+          Total Transactions = {totalTransaction}
         </div>
 
-        {/* Money Card */}
-                <div className='col-md-4'>
-                    <div className='card'>
+        <div className='card-body'>
+          <h5 className='text-success'>
+            Income : {totalIncomeTransactions.length}
+          </h5>
 
-                        <div className='card-header'>
-                            Total Balance = ₹{totalBalance}
-                        </div>
+          <h5 className='text-danger'>
+            Expense : {totalExpenseTransactions.length}
+          </h5>
 
-                        <div className='card-body'>
+          <div className='d-flex justify-content-around'>
+            <Progress
+              type='circle'
+              strokeColor='green'
+              percent={totalIncomePercent.toFixed(0)}
+            />
 
-                            <h5 className='text-success'>
-                                Total Income : ₹{totalIncome}
-                            </h5>
-
-                            <h5 className='text-danger'>
-                                Total Expense : ₹{totalExpense}
-                            </h5>
-
-                            <div>
-                                <Progress
-                                    type='circle'
-                                    strokeColor='green'
-                                    className='mx-2'
-                                    percent={totalIncomePercentByAmount.toFixed(0)}
-                                />
-
-                                <Progress
-                                    type='circle'
-                                    strokeColor='red'
-                                    className='mx-2'
-                                    percent={totalExpensePercentByAmount.toFixed(0)}
-                                />
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
+            <Progress
+              type='circle'
+              strokeColor='red'
+              percent={totalExpensePercent.toFixed(0)}
+            />
+          </div>
+        </div>
       </div>
 
-
-
-      {/* catrgory wise Income */}
-      <div className='row mt-3'>
-        <div className = 'col md-4'>
-            <h5 className="pt-4">Categorywise Income</h5>
-            {
-                categories.map((category)=>{
-                    const amount = allTransactions.filter((transaction) => transaction.type==='income' && transaction.category === category).reduce((acc, transaction)=> acc + transaction.amount , 0);
-
-                    return(
-                        amount > 0 &&
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h5>{category}</h5>
-                            <Progress  percent = {((amount / totalIncome)*100).toFixed(0)}  />
-                            
-                        </div>
-                    </div>
-                    )
-                })
-            }
+      {/* Card 2 */}
+      <div className='card p-2' style={{ width: '24%' }}>
+        <div className='card-header'>
+          Total Balance = ₹{totalBalance}
         </div>
 
-            {/* categorywise expense */}
-        <div className = 'col md-4'>
-            <h5 className="pt-4" >Categorywise Expense</h5>
-            {
-                categories.map((category)=>{
-                    const amount = allTransactions.filter((transaction) => transaction.type==='expense' && transaction.category === category).reduce((acc, transaction)=> acc + transaction.amount , 0);
+        <div className='card-body'>
+          <h5 className='text-success'>
+            Total Income : ₹{totalIncome}
+          </h5>
 
-                    return(
-                        amount > 0 &&
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h5>{category}</h5>
-                            <Progress  percent = {((amount / totalExpense)*100).toFixed(0)}  />
-                            
-                        </div>
-                    </div>
-                    )
-                })
-            }
+          <h5 className='text-danger'>
+            Total Expense : ₹{totalExpense}
+          </h5>
+
+          <div className='d-flex justify-content-around'>
+            <Progress
+              type='circle'
+              strokeColor='green'
+              percent={totalIncomePercentByAmount.toFixed(0)}
+            />
+
+            <Progress
+              type='circle'
+              strokeColor='red'
+              percent={totalExpensePercentByAmount.toFixed(0)}
+            />
+          </div>
         </div>
-
-
       </div>
 
-    </>
-  )
+      {/* Card 3 */}
+      <div className='card p-2' style={{ width: '24%' }}>
+        <div className='card-header bg-dark text-white'>
+          Categorywise Income
+        </div>
+
+        <div className='card-body'>
+          {
+            categories.map((category) => {
+
+              const amount = allTransactions
+                .filter(
+                  (transaction) =>
+                    transaction.type === 'income' &&
+                    transaction.category === category
+                )
+                .reduce(
+                  (acc, transaction) => acc + transaction.amount,
+                  0
+                );
+
+              return (
+                amount > 0 && (
+                  <div className='mb-3'>
+                    <h6>{category}</h6>
+
+                    <Progress
+                      percent={((amount / totalIncome) * 100).toFixed(0)}
+                    />
+                  </div>
+                )
+              );
+            })
+          }
+        </div>
+      </div>
+
+      {/* Card 4 */}
+      <div className='card p-2' style={{ width: '24%' }}>
+        <div className='card-header bg-warning text-white'>
+          Categorywise Expense
+        </div>
+
+        <div className='card-body'>
+          {
+            categories.map((category) => {
+
+              const amount = allTransactions
+                .filter(
+                  (transaction) =>
+                    transaction.type === 'expense' &&
+                    transaction.category === category
+                )
+                .reduce(
+                  (acc, transaction) => acc + transaction.amount,
+                  0
+                );
+
+              return (
+                amount > 0 && (
+                  <div className='mb-3'>
+                    <h6>{category}</h6>
+
+                    <Progress
+                      percent={((amount / totalExpense) * 100).toFixed(0)}
+                    />
+                  </div>
+                )
+              );
+            })
+          }
+        </div>
+      </div>
+
+    </div>
+  </>
+)
 }
 
 export default Analytics
