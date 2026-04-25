@@ -13,6 +13,36 @@ const addTransaction = async(req,res)=>{
     }
 }
 
+
+// edit
+const editTransaction = async(req, res)=>{
+    try {
+        await transactionModel.findOneAndUpdate({_id: req.body.transactionId},
+            req.body.payload
+        )
+        res.status(200).send("Edit Successfully");
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);    
+    }
+}
+
+// delete
+const deleteTransaction = async(req,res)=>{
+    try {
+        await transactionModel.findOneAndDelete({_id : req.body.transactionId})
+        res.status(200).send("deleted successfully")
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+        
+    }
+}
+
+
+// get
 const getTransaction = async(req,res)=>{
     try {
         const {frequency , selectedDate , type} = req.body;
@@ -44,4 +74,4 @@ const getTransaction = async(req,res)=>{
     }
 }
 
-export default {addTransaction, getTransaction};
+export default {addTransaction, getTransaction, editTransaction, deleteTransaction};
